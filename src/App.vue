@@ -11,7 +11,7 @@
       <div class="desc"></div>
       <div class="login">
         <div class="login-wrapper">
-          <child-comp v-if="isShowChild"></child-comp>
+          <child-comp @updata-info='updataInfo' v-if="isShowChild" :info="kid" v-on:send-data="getDataFromChild"></child-comp>
           <el-form :model="form" label-width="80px">
             <el-form-item label="用户名：">
               <el-input v-model="form.name"></el-input>
@@ -31,8 +31,10 @@
 
 <script>
 // 引入
+
 import ChildComp from './components/ChildComp.vue';
 export default {
+ 
   // components
   components: {
     ChildComp,
@@ -47,10 +49,18 @@ export default {
         passwd: '',
       },
       isShowChild: true,
+      kid:'初始值',
     }
   },
   // 方法
   methods: {
+    updataInfo (v) {
+      console.log(v)
+      this.kid=v
+    },
+    getDataFromChild (data) {
+      console.log('从子组件传来的数据',data)
+    },
     createHelloMsg() {
       console.log(this.info)
     },
@@ -83,9 +93,7 @@ export default {
       this.isShow = false;
       this.isHighLight = true;
     }, 3000)
-    setInterval(() => {
-      this.isShowChild = !this.isShowChild;
-    }, 3000)
+   
   },
 }
 </script>
