@@ -1,5 +1,10 @@
 <template>
+    <div>
     <div >受控数字：{{ number }}</div>
+    <div v-if="!showName" v-loading="!showName"></div>  
+    <div v-else>{{user.info.name }}</div>
+    </div>
+    
 </template>
 
 <script>
@@ -7,15 +12,26 @@
 import {MittBus, MittType} from './MittEvent'
 export default {
     name: "ParentControl",
-    props: ['refresh'],
+    props: ['refresh','user'],
     data: function () {
         return {
-            number: 0
+            number: 0,
+            showName:false
         }
     },
     watch: {
         refresh: function () {
             this.addOne()
+        },
+        user : {
+            handler: function(newvalue) {
+                if(newvalue?.info?.name)
+                {
+                    this.showName =true
+                }
+                
+            },
+            deep:true
         }
     },
     methods: {

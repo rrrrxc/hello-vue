@@ -4,7 +4,7 @@
             <div slot="header">
                 <el-button @click="fresh">控制子组件</el-button>
             </div>
-            <parent-control ref="child" :refresh="refresh" />
+            <parent-control ref="child" :refresh="refresh" :user="user"/>
         </el-card>
     </div>
 </template>
@@ -20,8 +20,20 @@ export default {
     data: function() {
         return {
             refresh: false,
+            user: {
+             
+            }
         }
     },
+    mounted() {
+        setTimeout(()=> {
+           this.$set(this.user,'info',{name:'大象'})
+            },3000)
+    },
+
+    
+
+    
     methods: {
         fresh() {
             //方法四
